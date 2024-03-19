@@ -1,0 +1,5 @@
+application:
+  name: Plume-Backend
+
+server:
+  port:8080
