@@ -3,3 +3,38 @@ application:
 
 server:
   port:8080
+
+mybatis:
+  mapper-locations:
+    - classpath:database/mapper/mysql/**/**/*.xml
+    - classpath:schedule/mapper/mysql/**/**/*.xml
+  configuration:
+    return-instance-for-empty-row: true
+    map-underscore-to-camel-case: true
+
+swagger:
+  group-name: Version 1.0
+  title: Plume-Backend
+  ver: 0.1
+  base-package: com.plume.backend.api
+  description: Plume-Backend API
+
+spring:
+  datasource:
+    driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+    url: jdbc:log4jdbc:mysql://49.247.8.143:3306/acorncalendar
+    username: acorncalendar
+    password: acorn1calendar123!
+    hikari:
+      maximum-pool-size: 5
+      idle-timeout: 30000
+  jpa:
+    open-in-view: false
+    show-sql: false
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+    properties:
+      hibernate:
+        format_sql: true

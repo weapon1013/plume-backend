@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.plume.backend.api.sample.repository.mybatis.SampleRepository">
+
+    <select id="selectSampleList" resultType="com.plume.backend.api.sample.domain.vo.SampleVO">
+        SELECT
+            SEQ,
+            TITLE,
+            CONTENT,
+            SAMPLE_COLUMN1,
+            SAMPLE_COLUMN2,
+            TYPE,
+            REG_DT
+        FROM SAMPLE
+    </select>
+
+<!--    <select id="selectSample" resultType="com.plume.backend.api.sample.domain.vo.SampleVO">-->
+<!--        SELECT-->
+<!--            SEQ,-->
+<!--            TITLE,-->
+<!--            CONTENT,-->
+<!--            SAMPLE_COLUMN1,-->
+<!--            SAMPLE_COLUMN2,-->
+<!--            TYPE,-->
+<!--            REG_DT-->
+<!--        FROM SAMPLE-->
+<!--        WHERE SEQ = #{seq}-->
+<!--    </select>-->
+
+</mapper>
