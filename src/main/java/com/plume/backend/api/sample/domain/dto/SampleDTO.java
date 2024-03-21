@@ -1,13 +1,15 @@
 package com.plume.backend.api.sample.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.plume.backend.api.sample.domain.entity.SampleEntity;
 import com.plume.backend.api.sample.domain.enums.SampleEnum;
 import com.plume.backend.api.sample.domain.vo.SampleVO;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,25 +22,27 @@ public class SampleDTO {
     @Builder
     public static class SampleResponse {
 
-        @ApiModelProperty(position = 1, value = "샘플_시퀀스")
+        @Schema(description = "샘플_시퀀스")
         private long seq;
 
-        @ApiModelProperty(position = 1, value = "제목")
+        @Schema(description = "제목")
         private String title;
 
-        @ApiModelProperty(position = 1, value = "내용")
+        @Schema(description = "내용")
         private String content;
 
-        @ApiModelProperty(position = 1, value = "샘플_컬럼_1")
+        @Schema(description = "샘플_컬럼_1")
         private String sampleColumn1;
 
-        @ApiModelProperty(position = 1, value = "샘플_컬럼_2")
+        @Schema(description = "샘플_컬럼_2")
         private String sampleColumn2;
 
-        @ApiModelProperty(position = 1, value = "샘플_타입")
+        @Schema(description = "샘플_타입")
         private SampleEnum type;
 
-        @ApiModelProperty(position = 1, value = "생성_일자")
+        @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
+        @JsonFormat(shape = JsonFormat.Shape.STRING, timezone = "Asia/Seoul", pattern = "yyyy-MM-dd HH:mm:ss")
+        @Schema(description = "생성_일자")
         private LocalDateTime regDt;
 
         // SampleVO -> SampleDTO
@@ -71,7 +75,7 @@ public class SampleDTO {
     @Builder
     public static class SampleListResponse {
 
-        @ApiModelProperty(position = 1, value = "샘플 리스트")
+        @Schema(description = "샘플 리스트")
         private List<SampleResponse> items;
 
         public static SampleListResponse of(List<SampleResponse> items) {

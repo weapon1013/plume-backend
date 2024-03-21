@@ -4,6 +4,13 @@ application:
 server:
   port:8080
 
+springfox:
+  documentation:
+    swagger-ui:
+      path: /swagger-ui.html
+      disable-swagger-default-url: true
+      display-query-params-without-oauth2: true
+
 mybatis:
   mapper-locations:
     - classpath:database/mapper/mysql/**/**/*.xml
@@ -13,6 +20,7 @@ mybatis:
     map-underscore-to-camel-case: true
 
 swagger:
+  base-url:
   group-name: Version 1.0
   title: Plume-Backend
   ver: 0.1
