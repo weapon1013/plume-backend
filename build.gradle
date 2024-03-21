@@ -40,12 +40,14 @@ dependencies {
 	testImplementation 'org.springframework.batch:spring-batch-test'
 
 	implementation 'io.leego:banana:2.1.0'
-	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'					//jdbc logging
+	implementation 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16'	//jdbc logging
 
 	// springdoc 적용 참고 (SpringBoot 3 이상 버전에서는 SpringFox 사용 불가) : https://resilient-923.tistory.com/414
-	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2' // Swagger (springdoc)
 
-	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
+	implementation 'com.googlecode.json-simple:json-simple:1.1.1' // Simple Json
+
+	implementation "org.springframework.boot:spring-boot-starter-quartz" // Quartz
 
 }
 
