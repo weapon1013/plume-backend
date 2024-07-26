@@ -33,6 +33,7 @@ public class SecurityConfig {
     @Value("${allowed.origin.url}")
     private String originUrls;
 
+    // 비밀번호 암호화 할 때 사용
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -45,21 +46,24 @@ public class SecurityConfig {
 //        return (web) -> web.ignoring()
 //                .requestMatchers("/api/v1/auth/**","/css/**","/js/**","/img/**","/lib/**", "/");
 //    }
+
+    // HTTP 보안 설정 정의
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
-        http.csrf(csrf -> csrf.disable())
-                .authorizeRequests(authorizeRequests ->
+        http.csrf(csrf -> csrf.disable()) // CSRF 비활성화
+                .authorizeRequests(authorizeRequests -> // 특정 경로에 대한 접근 권한 설정
                         authorizeRequests
                                 .requestMatchers("/api/v1/auth/**").permitAll()
                                 .requestMatchers("/api/v1/**").authenticated()
                                 .anyRequest().permitAll()
                 ).formLogin(form -> form.disable())
-                .apply(new JwtSecurityConfigurer(tokenProvider));
+                .apply(new JwtSecurityConfigurer(tokenProvider)); // JWT 설정 적용
 
         return http.build();
     }
 
+    // CORS 설정 정의 / 특정 도메인에서만 요청을 허용하고, 허용된 HTTP 메소드와 헤더 설정
     @Bean
     public CorsConfigurationSource corsConfiguration() {
 
@@ -75,6 +79,7 @@ public class SecurityConfig {
         return source;
     }
 
+    // JWT 관련 설정을 HttpSecurity 에 추가하는 역할
     @Configuration
     @RequiredArgsConstructor
     public static class JwtSecurityConfigurer implements SecurityConfigurer<DefaultSecurityFilterChain, HttpSecurity> {
@@ -91,6 +96,8 @@ public class SecurityConfig {
 
         @Override
         public void configure(HttpSecurity builder) throws Exception {
+            // JWT 필터를 UsernamePasswordAuthenticationFilter 앞에 추가
+            // 요청이 UsernamePasswordAuthenticationFilter에 도달하기 전 JWT 검증
             builder.addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class);
         }
     }

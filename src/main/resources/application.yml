@@ -31,9 +31,9 @@ swagger:
 spring:
   datasource:
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    url: # 포트폴리오 제출을 위한 보안 위험 제거
-    username: # 포트폴리오 제출을 위한 보안 위험 제거
-    password: # 포트폴리오 제출을 위한 보안 위험 제거
+    url: jdbc:log4jdbc:mysql://127.0.0.1:3306/plume
+    username: root
+    password: n7532056@
     hikari:
       maximum-pool-size: 5
       idle-timeout: 30000
@@ -46,6 +46,7 @@ spring:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
     properties:
       hibernate:
+        dialect: org.hibernate.dialect.MariaDB106Dialect
         format_sql: true
 
 jwt:
@@ -54,3 +55,4 @@ jwt:
 allowed:
   origin:
     url: http://localhost:3000, http://localhost:8000
+
