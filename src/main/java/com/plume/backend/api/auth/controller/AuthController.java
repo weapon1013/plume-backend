@@ -34,4 +34,6 @@ public class AuthController {
         AuthDTO.TokenResponse response = authService.login(requestBody.toVO());
         return ResponseEntity.ok(new RestResponse<>(response));
     }
+
+    // desktop commit test
 }
