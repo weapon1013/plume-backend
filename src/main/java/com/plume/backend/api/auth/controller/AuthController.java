@@ -7,6 +7,7 @@ import com.plume.backend.api.auth.service.AuthService;
 import com.plume.common.response.RestResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,7 +22,7 @@ public class AuthController {
     @GetMapping(value = "/test", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<String> test(@RequestBody AuthDTO.JoinRequest r) {
 
-        authService.test(r.toEntity());
+        authService.join(r.toEntity());
 
         return ResponseEntity.ok("Security Test");
     }
@@ -34,4 +35,11 @@ public class AuthController {
         AuthDTO.TokenResponse response = authService.login(requestBody.toVO());
         return ResponseEntity.ok(new RestResponse<>(response));
     }
+
+    @GetMapping(value = "/test/select", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> t(@RequestParam("userSeq") long userSeq) {
+
+        return ResponseEntity.ok(authService.t(userSeq));
+    }
+
 }

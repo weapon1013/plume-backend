@@ -55,7 +55,7 @@ public class SecurityConfig {
                 .authorizeRequests(authorizeRequests -> // 특정 경로에 대한 접근 권한 설정
                         authorizeRequests
                                 .requestMatchers("/api/v1/auth/**").permitAll()
-                                .requestMatchers("/api/v1/**").authenticated()
+                                //.requestMatchers("/api/v1/**").authenticated()
                                 .anyRequest().permitAll()
                 ).formLogin(form -> form.disable())
                 .apply(new JwtSecurityConfigurer(tokenProvider)); // JWT 설정 적용
@@ -98,7 +98,7 @@ public class SecurityConfig {
         public void configure(HttpSecurity builder) throws Exception {
             // JWT 필터를 UsernamePasswordAuthenticationFilter 앞에 추가
             // 요청이 UsernamePasswordAuthenticationFilter에 도달하기 전 JWT 검증
-            builder.addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class);
+            //builder.addFilterBefore(new JwtFilter(tokenProvider), UsernamePasswordAuthenticationFilter.class);
         }
     }
 }

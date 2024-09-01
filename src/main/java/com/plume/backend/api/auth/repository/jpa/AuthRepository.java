@@ -9,4 +9,6 @@ public interface AuthRepository extends JpaRepository<AuthEntity,Long> {
 
     Optional<AuthEntity> findByUserIdAndDelYn(String userId, String delYn);
 
+    Optional<AuthEntity> findByUserSeq(long userSeq);
+
 }

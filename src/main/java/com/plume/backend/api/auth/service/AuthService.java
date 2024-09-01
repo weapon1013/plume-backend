@@ -45,8 +45,13 @@ public class AuthService implements UserDetailsService {
         return tokenProvider.generateToken(authEntity.get());
     }
 
-    public void test(AuthEntity authEntity) {
+    public void join(AuthEntity authEntity) {
         authEntity.setUserPw(passwordEncoder.encode("test1"));
         authRepository.save(authEntity);
+    }
+
+    public String t(long userSeq) {
+        var authEntity = authRepository.findByUserSeq(userSeq);
+        return authEntity.get().getUserNickname();
     }
 }

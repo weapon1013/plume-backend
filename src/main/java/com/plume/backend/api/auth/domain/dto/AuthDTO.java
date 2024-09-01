@@ -69,13 +69,14 @@ public class AuthDTO {
         public AuthEntity toEntity() {
             return AuthEntity.builder()
                     .incomeSeq(incomeSeq)
-                    .userId("test1")
-                    .userNickname("테스트")
-                    .userChk("N")
-                    .userEmail("test@test.com")
-                    .privateYn("N")
+                    .userId(userId)
+                    .userNickname(userNickname)
+                    .userChk(userChk)
+                    .userEmail(userEmail)
+                    .privateYn(privateYn)
                     .delYn("N")
-                    .userGender("F")
+                    .userGender(userGender)
+                    .userBirth(userBirth)
                     .build();
         }
     }
