@@ -52,11 +52,12 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         http.csrf(csrf -> csrf.disable()) // CSRF 비활성화
+                .cors(cors -> cors.configurationSource(corsConfiguration()))
                 .authorizeRequests(authorizeRequests -> // 특정 경로에 대한 접근 권한 설정
                         authorizeRequests
                                 .requestMatchers("/api/v1/auth/**").permitAll()
                                 //.requestMatchers("/api/v1/**").authenticated()
-                                .anyRequest().permitAll()
+                                .anyRequest().authenticated()
                 ).formLogin(form -> form.disable())
                 .apply(new JwtSecurityConfigurer(tokenProvider)); // JWT 설정 적용
 

@@ -32,37 +32,37 @@ public class JwtFilter extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
 
-//        String authorization = request.getHeader(AUTHORIZATION_HEADER);
-//
-//        if(request.getRequestURI().startsWith("/api/v1/auth")){
-//            filterChain.doFilter(request, response);
-//            return;
-//        }
-//
-//        if(authorization == null) {
-//            throw new RuntimeException("Does not have Authorization");
-//        }
-//
-//        String accessToken = resolveToken(request);
-//
-//        try {
-//            Jws<Claims> claimsJws = Jwts.parserBuilder().setSigningKey(tokenProvider.getKey()).build().parseClaimsJws(accessToken);
-//            Authentication authentication = tokenProvider.getAuthentication(claimsJws.getBody(), request);
-//            SecurityContextHolder.getContext().setAuthentication(authentication);
-//        } catch (SecurityException | MalformedJwtException e) {
-//            e.printStackTrace();
-//            //Authorization을 다시 확인해주세요.
-//        } catch (ExpiredJwtException e) {
-//            e.printStackTrace();
-//            //만료된 JWT 토큰 입니다.
-//        } catch (UnsupportedJwtException e) {
-//            e.printStackTrace();
-//            //지원되지 않는 JWT 토큰입니다.
-//        } catch (IllegalArgumentException e) {
-//            e.printStackTrace();
-//            //JWT 토큰이 잘못되었습니다.
-//        }
-//
+        String authorization = request.getHeader(AUTHORIZATION_HEADER);
+
+        if(request.getRequestURI().startsWith("/api/v1/auth")){
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        if(authorization == null) {
+            throw new RuntimeException("Does not have Authorization");
+        }
+
+        String accessToken = resolveToken(request);
+
+        try {
+            Jws<Claims> claimsJws = Jwts.parserBuilder().setSigningKey(tokenProvider.getKey()).build().parseClaimsJws(accessToken);
+            Authentication authentication = tokenProvider.getAuthentication(claimsJws.getBody(), request);
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+        } catch (SecurityException | MalformedJwtException e) {
+            e.printStackTrace();
+            //Authorization을 다시 확인해주세요.
+        } catch (ExpiredJwtException e) {
+            e.printStackTrace();
+            //만료된 JWT 토큰 입니다.
+        } catch (UnsupportedJwtException e) {
+            e.printStackTrace();
+            //지원되지 않는 JWT 토큰입니다.
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+            //JWT 토큰이 잘못되었습니다.
+        }
+
         filterChain.doFilter(request, response);
 
         // login api 는 시큐리티 설정 제외됨. 로그인에서 비밀번호 비교 후 성공 시 jwt 발급 및 쿠키 구움. 그리고 이걸 사용자가 갖고 다음 요청부터 인증하고 인증 성공하면 필터에서 시큐리티 컨텍스트에 사용자 정보를 계속 저장
