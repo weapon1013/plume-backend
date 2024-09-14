@@ -24,7 +24,7 @@ swagger:
   base-url:
   group-name: Version 1.0
   title: Plume-Backend
-  ver: 0.1
+  ver: 3.0.0
   base-package: com.plume.backend.api
   description: Plume-Backend API
 

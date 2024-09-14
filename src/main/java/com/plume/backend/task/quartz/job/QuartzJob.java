@@ -22,6 +22,5 @@ public class QuartzJob implements Job {
 
         log.info("-----------------------------------------------");
         log.info("Quartz Task Time : "+ sdf.format(date));
-        log.info("-----------------------------------------------");
     }
 }

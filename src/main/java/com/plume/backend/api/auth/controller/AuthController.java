@@ -18,10 +18,10 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @GetMapping(value = "/test", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> test(@RequestBody AuthDTO.JoinRequest r) {
+    @GetMapping(value = "/sign", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> test(@RequestBody AuthDTO.JoinRequest request) {
 
-        authService.join(r.toEntity());
+        authService.join(request.toEntity());
 
         return ResponseEntity.ok("Security Test");
     }

@@ -56,6 +56,8 @@ public class SecurityConfig {
                 .authorizeRequests(authorizeRequests -> // 특정 경로에 대한 접근 권한 설정
                         authorizeRequests
                                 .requestMatchers("/api/v1/auth/**").permitAll()
+                                .requestMatchers("/swagger-ui/**").permitAll()
+                                .requestMatchers("/v3/api-docs/**").permitAll()
                                 //.requestMatchers("/api/v1/**").authenticated()
                                 .anyRequest().authenticated()
                 ).formLogin(form -> form.disable())
