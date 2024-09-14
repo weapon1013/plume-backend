@@ -45,7 +45,7 @@ public class AuthService implements UserDetailsService {
         return tokenProvider.generateToken(authEntity.get());
     }
 
-    public void join(AuthEntity authEntity) {
+    public void sign(AuthEntity authEntity) {
         authEntity.setUserPw(passwordEncoder.encode("test1"));
         authRepository.save(authEntity);
     }

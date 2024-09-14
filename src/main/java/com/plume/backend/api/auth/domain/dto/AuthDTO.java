@@ -47,7 +47,7 @@ public class AuthDTO {
 
     @Getter
     @Setter
-    public static class JoinRequest {
+    public static class SignRequest {
         private long userSeq;
         private long fileSeq;
         private long incomeSeq;

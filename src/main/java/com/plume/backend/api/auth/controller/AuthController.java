@@ -19,9 +19,9 @@ public class AuthController {
     private final AuthService authService;
 
     @GetMapping(value = "/sign", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> test(@RequestBody AuthDTO.JoinRequest request) {
+    public ResponseEntity<String> test(@RequestBody AuthDTO.SignRequest request) {
 
-        authService.join(request.toEntity());
+        authService.sign(request.toEntity());
 
         return ResponseEntity.ok("Security Test");
     }
@@ -35,10 +35,10 @@ public class AuthController {
         return ResponseEntity.ok(new RestResponse<>(response));
     }
 
-    @GetMapping(value = "/test/select", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> t(@RequestParam("userSeq") long userSeq) {
-
-        return ResponseEntity.ok(authService.t(userSeq));
-    }
+//    @GetMapping(value = "/test/select", produces = MediaType.APPLICATION_JSON_VALUE)
+//    public ResponseEntity<String> t(@RequestParam("userSeq") long userSeq) {
+//
+//        return ResponseEntity.ok(authService.t(userSeq));
+//    }
 
 }
