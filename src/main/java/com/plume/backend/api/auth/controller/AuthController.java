@@ -11,6 +11,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URLDecoder;
+
 @RequestMapping("/api/v1/auth")
 @RestController("Api_UserController")
 @RequiredArgsConstructor
@@ -18,12 +20,12 @@ public class AuthController {
 
     private final AuthService authService;
 
-    @GetMapping(value = "/sign", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> test(@RequestBody AuthDTO.SignRequest request) {
+    @PostMapping(value = "/sign", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<RestResponse.RestResultResponse> sign(@RequestBody AuthDTO.SignRequest request) {
 
         authService.sign(request.toEntity());
 
-        return ResponseEntity.ok("Security Test");
+        return ResponseEntity.ok(new RestResponse.RestResultResponse());
     }
 
     @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -35,10 +37,14 @@ public class AuthController {
         return ResponseEntity.ok(new RestResponse<>(response));
     }
 
-//    @GetMapping(value = "/test/select", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<String> t(@RequestParam("userSeq") long userSeq) {
-//
-//        return ResponseEntity.ok(authService.t(userSeq));
-//    }
+    @GetMapping(value = "/check", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<RestResponse<AuthDTO.CheckResponse>> check(
+            @RequestParam("checkStr") String checkStr,
+            @RequestParam("type") String type
+    ) {
+
+        AuthDTO.CheckResponse response = authService.check(checkStr, type);
+        return ResponseEntity.ok(new RestResponse<>(response));
+    }
 
 }

@@ -9,6 +9,10 @@ public interface AuthRepository extends JpaRepository<AuthEntity,Long> {
 
     Optional<AuthEntity> findByUserIdAndDelYn(String userId, String delYn);
 
-    Optional<AuthEntity> findByUserSeq(long userSeq);
+    boolean existsByUserIdAndDelYn(String userId, String delYn);
+
+    boolean existsByUserNicknameAndDelYn(String userNickname, String delYn);
+
+    boolean existsByUserEmailAndDelYn(String userEmail, String delYn);
 
 }

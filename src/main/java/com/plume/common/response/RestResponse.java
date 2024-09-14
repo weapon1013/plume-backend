@@ -51,6 +51,14 @@ public class RestResponse<T> {
         private LocalDateTime resultDate;
 
         @Builder
+        public RestResultResponse() {
+            this.resultCode = 200;
+            //this.resultMessage = null == resultMessage ? MessageUtils.getMessage("message.success") : resultMessage;
+            this.resultMessage = "success";
+            this.resultDate = LocalDateTime.now();
+        }
+
+        @Builder
         public RestResultResponse(int resultCode, String resultMessage) {
             this.resultCode = (resultCode == 0 ? 200 : resultCode);
             //this.resultMessage = null == resultMessage ? MessageUtils.getMessage("message.success") : resultMessage;

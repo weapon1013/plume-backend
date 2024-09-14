@@ -31,6 +31,20 @@ public class AuthDTO {
     }
 
     @Getter
+    @Builder
+    public static class CheckResponse {
+
+        private boolean check;
+
+        public static CheckResponse of(boolean check) {
+            return CheckResponse.builder()
+                    .check(check)
+                    .build();
+        }
+    }
+
+
+    @Getter
     @Setter
     public static class LoginRequest {
 

@@ -33,6 +33,11 @@ public class AuthService implements UserDetailsService {
         return authEntity.get();
     }
 
+    public void sign(AuthEntity authEntity) {
+        authEntity.setUserPw(passwordEncoder.encode("test1"));
+        authRepository.save(authEntity);
+    }
+
     public AuthDTO.TokenResponse login(AuthVO user) {
 
         Optional<AuthEntity> authEntity = authRepository.findByUserIdAndDelYn(user.getUserId(), "N");
@@ -45,13 +50,17 @@ public class AuthService implements UserDetailsService {
         return tokenProvider.generateToken(authEntity.get());
     }
 
-    public void sign(AuthEntity authEntity) {
-        authEntity.setUserPw(passwordEncoder.encode("test1"));
-        authRepository.save(authEntity);
+    public AuthDTO.CheckResponse check(String checkStr, String type) {
+
+        boolean check = true;
+
+        if(type.equals("id")) {
+            check = authRepository.existsByUserIdAndDelYn(checkStr, "N");
+        }else {
+            check = authRepository.existsByUserNicknameAndDelYn(checkStr, "N");
+        }
+
+        return AuthDTO.CheckResponse.of(check);
     }
 
-    public String t(long userSeq) {
-        var authEntity = authRepository.findByUserSeq(userSeq);
-        return authEntity.get().getUserNickname();
-    }
 }
