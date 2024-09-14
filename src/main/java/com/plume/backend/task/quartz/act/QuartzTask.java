@@ -42,7 +42,7 @@ public class QuartzTask {
     public void init() {
         try {
             scheduler.clear();
-            addCronJob(QuartzJob.class, "Quartz1", "Quartz1 동작", "0/5 * * * * ?"); // 5초마다 실행 (시작 시간 : 초가 5의 배수에서 시작)
+            //addCronJob(QuartzJob.class, "Quartz1", "Quartz1 동작", "0/5 * * * * ?"); // 5초마다 실행 (시작 시간 : 초가 5의 배수에서 시작)
         }catch (Exception e) {
             log.error("[Quartz] Add Job Error : {}", e.getMessage());
         }

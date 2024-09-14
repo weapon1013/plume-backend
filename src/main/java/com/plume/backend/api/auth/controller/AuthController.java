@@ -5,6 +5,7 @@ import com.plume.backend.api.auth.domain.entity.AuthEntity;
 import com.plume.backend.api.auth.repository.jpa.AuthRepository;
 import com.plume.backend.api.auth.service.AuthService;
 import com.plume.common.response.RestResponse;
+import com.plume.common.util.MailUtils;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -45,6 +46,14 @@ public class AuthController {
 
         AuthDTO.CheckResponse response = authService.check(checkStr, type);
         return ResponseEntity.ok(new RestResponse<>(response));
+    }
+
+    @GetMapping(value = "/email", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> test() throws Exception {
+
+        MailUtils.sendMail();
+
+        return ResponseEntity.ok("response success");
     }
 
 }
