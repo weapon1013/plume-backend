@@ -2,10 +2,17 @@ package com.plume.backend.api.auth.service;
 
 import com.plume.backend.api.auth.domain.dto.AuthDTO;
 import com.plume.backend.api.auth.domain.entity.AuthEntity;
+import com.plume.backend.api.auth.domain.entity.MailEntity;
 import com.plume.backend.api.auth.domain.vo.AuthVO;
+import com.plume.backend.api.auth.domain.vo.MailVO;
 import com.plume.backend.api.auth.repository.jpa.AuthRepository;
+import com.plume.backend.api.auth.repository.jpa.MailRepository;
 import com.plume.backend.security.TokenProvider;
+import com.plume.common.util.MailUtils;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -23,6 +30,10 @@ public class AuthService implements UserDetailsService {
     private final PasswordEncoder passwordEncoder;
 
     private final TokenProvider tokenProvider;
+
+    private final MailRepository mailRepository;
+
+    private final RedisTemplate<String,String> redisTemplate;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -50,7 +61,7 @@ public class AuthService implements UserDetailsService {
         return tokenProvider.generateToken(authEntity.get());
     }
 
-    public AuthDTO.CheckResponse check(String checkStr, String type) {
+    public AuthDTO.CheckResponse idOrNicknameCheck(String checkStr, String type) {
 
         boolean check = true;
 
@@ -61,6 +72,33 @@ public class AuthService implements UserDetailsService {
         }
 
         return AuthDTO.CheckResponse.of(check);
+    }
+
+    public boolean emailCheck(MailVO mail) throws Exception {
+
+        boolean check = authRepository.existsByUserEmailAndDelYn(mail.getUserEmail(), "N");
+
+        if(!check) {
+
+            String authCode = RandomStringUtils.randomAlphabetic(6);
+
+            MailUtils.sendMail(mail.getUserEmail(), authCode);
+            mailRepository.save(MailEntity.builder().code(authCode).build());
+        }
+
+        return check;
+    }
+
+    public boolean authCodeCheck(String code) {
+
+        Optional<MailEntity> auth = mailRepository.findById(code);
+        boolean check = auth.isPresent();
+
+        if(check) {
+            mailRepository.deleteById(code);
+        }
+
+        return !check;
     }
 
 }

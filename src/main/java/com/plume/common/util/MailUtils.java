@@ -25,9 +25,7 @@ public class MailUtils {
         sender = this.postSender;
     }
 
-    public static String sendMail() throws Exception {
-
-        String authCode = RandomStringUtils.randomAlphabetic(6);
+    public static String sendMail(String email, String authCode) throws Exception {
 
         MimeMessage message = sender.createMimeMessage();
         MimeMessageHelper messageHelper = new MimeMessageHelper(message, true, "UTF-8");
@@ -35,7 +33,7 @@ public class MailUtils {
         messageHelper.setSubject("[PLUME] 회원가입 인증번호입니다.");
         messageHelper.setFrom("acorn_calendar@naver.com");
         messageHelper.setText(authCode,true);
-        messageHelper.setTo("gksmf4721@naver.com");
+        messageHelper.setTo(email);
 
         sender.send(message);
 

@@ -48,6 +48,10 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MariaDB106Dialect
         format_sql: true
+  data:
+    redis:
+      host: localhost
+      port: 6379
 
 jwt:
   secret: c3ByaW5nLWJvb3Qtc2VjdXJpdHkta3w2cvXJlZGlzLXRoZXB7tvVyY81JDjcLXNwquiuZy1ib290LXNlY3VyaXR5LWp3dC1yZWRpcy10aGVwb3dlcmJyYWlucw1a
@@ -55,4 +59,3 @@ jwt:
 allowed:
   origin:
     url: http://localhost:3000,http://localhost:8080
-

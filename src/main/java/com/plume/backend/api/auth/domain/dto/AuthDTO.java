@@ -1,7 +1,9 @@
 package com.plume.backend.api.auth.domain.dto;
 
 import com.plume.backend.api.auth.domain.entity.AuthEntity;
+import com.plume.backend.api.auth.domain.entity.MailEntity;
 import com.plume.backend.api.auth.domain.vo.AuthVO;
+import com.plume.backend.api.auth.domain.vo.MailVO;
 import com.plume.backend.api.auth.domain.vo.TokenVO;
 import lombok.*;
 
@@ -95,5 +97,17 @@ public class AuthDTO {
         }
     }
 
+    @Getter
+    @Setter
+    public static class MailRequest {
+
+        private String userEmail;
+
+        public MailVO toVO() {
+            return MailVO.builder()
+                    .userEmail(userEmail)
+                    .build();
+        }
+    }
 
 }

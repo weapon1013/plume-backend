@@ -62,7 +62,7 @@ public class RestResponse<T> {
         public RestResultResponse(int resultCode, String resultMessage) {
             this.resultCode = (resultCode == 0 ? 200 : resultCode);
             //this.resultMessage = null == resultMessage ? MessageUtils.getMessage("message.success") : resultMessage;
-            this.resultMessage = "success";
+            this.resultMessage = resultMessage;
             this.resultDate = LocalDateTime.now();
         }
     }
