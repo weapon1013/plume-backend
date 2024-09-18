@@ -80,7 +80,7 @@ public class AuthService implements UserDetailsService {
 
         if(!check) {
 
-            String authCode = RandomStringUtils.randomAlphabetic(6);
+            String authCode = RandomStringUtils.randomNumeric(6);
 
             MailUtils.sendMail(mail.getUserEmail(), authCode);
             mailRepository.save(MailEntity.builder().code(authCode).build());
