@@ -93,6 +93,7 @@ public class AuthDTO {
                     .delYn("N")
                     .userGender(userGender)
                     .userBirth(userBirth)
+                    .userPw(userPw)
                     .build();
         }
     }

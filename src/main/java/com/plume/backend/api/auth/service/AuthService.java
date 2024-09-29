@@ -45,7 +45,7 @@ public class AuthService implements UserDetailsService {
     }
 
     public void sign(AuthEntity authEntity) {
-        authEntity.setUserPw(passwordEncoder.encode("test1"));
+        authEntity.setUserPw(passwordEncoder.encode(authEntity.getPassword()));
         authRepository.save(authEntity);
     }
 
