@@ -23,6 +23,7 @@ import java.util.Optional;
 @RequestMapping("/api/v1/auth")
 @RestController("Api_UserController")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:3000", allowCredentials = "true")
 public class AuthController {
 
     private final AuthService authService;
